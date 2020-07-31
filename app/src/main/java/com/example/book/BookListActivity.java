@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class BookListActivity extends AppCompatActivity {
-private ProgressBar mLoadingProgress;
+    private ProgressBar mLoadingProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +25,11 @@ private ProgressBar mLoadingProgress;
             URL bookUrl = ApiUtil.buildUrl("cooking");
             new BooksQueryTask().execute(bookUrl);
 
+        } catch (Exception e) {
+            Log.d("error", e.getMessage());
         }
-catch (Exception e) {
-    Log.d("error", e.getMessage());
-}
     }
+
     public class BooksQueryTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -38,9 +38,8 @@ catch (Exception e) {
             String result = null;
             try {
                 result = ApiUtil.getJson(searchURL);
-            }
-            catch (IOException e) {
-                Log.e("Error", e.getMessage() );
+            } catch (IOException e) {
+                Log.e("Error", e.getMessage());
             }
             return result;
         }
@@ -54,8 +53,7 @@ catch (Exception e) {
             if (result == null) {
                 tvResult.setVisibility(View.INVISIBLE);
                 tvError.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 tvResult.setVisibility(View.VISIBLE);
                 tvError.setVisibility(View.VISIBLE);
             }
